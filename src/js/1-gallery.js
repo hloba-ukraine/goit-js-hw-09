@@ -82,7 +82,7 @@ function createImgMarkUp(obj) {
     })
     .join('');
 }
-let galleryLightbox = new SimpleLightbox('.gallery a', {
+const galleryLightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
