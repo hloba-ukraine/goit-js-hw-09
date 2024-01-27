@@ -5,19 +5,31 @@ const refs = {
   btn: document.querySelector('.btn-submit'),
 };
 const STORAGE_KEY = 'feedback-form-state';
-const formData = {};
+
 savedTextarea();
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', onFormInput);
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  evt.currentTarget.reset();
+  if (refs.textarea.value === '' || refs.email.value === '') {
+    return alert('Заполните все поля');
+  }
+
   localStorage.removeItem(STORAGE_KEY);
-  console.log(formData);
+  console.log({
+    email: refs.email.value,
+    message: refs.textarea.value,
+  });
+  evt.currentTarget.reset();
 }
 function onFormInput(evt) {
-  formData[evt.target.name] = evt.target.value;
+  const email = refs.email.value;
+  const message = refs.textarea.value;
+  const formData = {
+    email: email,
+    message: message,
+  };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 function savedTextarea() {
@@ -27,10 +39,9 @@ function savedTextarea() {
     const parseMessage = JSON.parse(savedMessage).message;
     refs.textarea.value = parseMessage;
   }
-  const savedEmail = localStorage.getItem(STORAGE_KEY);
 
-  if (savedEmail) {
-    const parseEmail = JSON.parse(savedEmail).email;
+  if (savedMessage) {
+    const parseEmail = JSON.parse(savedMessage).email;
     refs.email.value = parseEmail;
   }
 }
