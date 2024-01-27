@@ -12,7 +12,7 @@ refs.form.addEventListener('input', onFormInput);
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  if (refs.textarea.value === '' || refs.email.value === '') {
+  if (evt.target.value === '') {
     return alert('Заполните все поля');
   }
 
